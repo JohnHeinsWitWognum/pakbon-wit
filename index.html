@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#005837">
+<title>Pakbon Wit</title>
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- 1. Scannen -->
+<section id="scherm-scannen" class="scherm">
+  <header class="balk">
+    <img class="logo-klein" src="logo.png" alt="Wit Aannemingsbedrijf" width="616" height="278">
+    <span class="naam">Pakbon</span>
+  </header>
+
+  <!-- De native camera-app via een file-input. Dit levert de volle
+       resolutie van het toestel; getUserMedia geeft veel minder. -->
+  <input id="invoer-foto" type="file" accept="image/*" capture="environment" multiple hidden>
+  <input id="invoer-vervang" type="file" accept="image/*" capture="environment" hidden>
+
+  <button id="knop-pagina" class="knop groot">Pagina toevoegen</button>
+  <p id="status-verwerken" class="status" hidden>Bezig met verwerken…</p>
+
+  <div id="paginas" class="paginas"></div>
+
+  <button id="knop-naar-afronden" class="knop groot secundair" disabled>Afronden</button>
+</section>
+
+<!-- 2. Afronden -->
+<section id="scherm-afronden" class="scherm" hidden>
+  <header class="balk">
+    <button id="knop-terug" class="knop klein plat">◀ Terug</button>
+    <img class="logo-klein" src="logo.png" alt="Wit Aannemingsbedrijf" width="616" height="278">
+  </header>
+
+  <h2>Verzenden</h2>
+  <p id="samenvatting" class="status"></p>
+  <ul id="bestandslijst" class="bestandslijst"></ul>
+
+  <!-- Verzenden geeft de foto's aan de mailapp; het adres kan een deelmenu
+       niet meegeven, dus dat staat eronder om te kopieren. -->
+  <div id="blok-verzenden" hidden>
+    <button id="knop-verzenden" class="knop groot">Verzenden</button>
+    <p class="status">Kies in het menu je mailapp. De foto&rsquo;s en het
+      onderwerp staan er al in. Vul als ontvanger dit adres in:</p>
+    <p class="adres"><span id="adres">…</span></p>
+    <button id="knop-kopieer" class="knop klein secundair">Adres kopiëren</button>
+  </div>
+
+  <!-- Kan het toestel geen bestanden delen: opslaan en dan zelf bijvoegen -->
+  <div id="blok-reserve" hidden>
+    <button id="knop-opslaan" class="knop groot">1. Opslaan op telefoon</button>
+    <button id="knop-mail" class="knop groot secundair">2. Mail openen</button>
+    <p class="status">Dit toestel kan geen foto&rsquo;s meesturen vanuit de app.
+      Sla ze eerst op en voeg ze daarna in de mail zelf toe.</p>
+  </div>
+
+  <p id="status-delen" class="status" hidden></p>
+  <button id="knop-nieuw" class="knop groot plat">Nieuwe pakbon beginnen</button>
+</section>
+
+<!-- Bijsnijden: de gevonden hoeken staan er al, de medewerker kan ze slepen -->
+<div id="snijder" class="snijder" hidden>
+  <p class="snijder-uitleg">Sleep de hoeken naar de rand van de pakbon.</p>
+  <div class="snijder-vlak"><canvas id="snijder-doek"></canvas></div>
+  <button id="knop-snij-ok" class="knop groot">Toepassen</button>
+  <button id="knop-snij-annuleer" class="knop groot plat">Annuleren</button>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

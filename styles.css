@@ -1,0 +1,199 @@
+/* Huisstijl Wit Aannemingsbedrijf, maar eerst bruikbaar:
+   grote raakvlakken voor werkhandschoenen, hoog contrast voor fel zonlicht.
+   Groen draagt de knoppen (wit op groen leest goed), oranje is alleen accent —
+   oranje met witte tekst heeft te weinig contrast voor buiten. */
+
+:root {
+  --groen: #005837;      /* uit het logo */
+  --groen-donker: #00412a;
+  --oranje: #f9a13a;     /* uit het logo */
+  --zwart: #111418;
+  --wit: #ffffff;
+  --grijs: #5b6470;
+  --lijn: #c8cdd4;
+  --rood: #b3261e;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+/* Moet vóór alle display-regels staan: .knop krijgt display:block en zou
+   het hidden-attribuut anders overstemmen. */
+[hidden] { display: none !important; }
+
+html, body {
+  margin: 0;
+  background: var(--wit);
+  color: var(--zwart);
+  font: 500 18px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  padding:
+    calc(16px + env(safe-area-inset-top, 0px))
+    calc(16px + env(safe-area-inset-right, 0px))
+    calc(24px + env(safe-area-inset-bottom, 0px))
+    calc(16px + env(safe-area-inset-left, 0px));
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+h1 { font-size: 26px; margin: 4px 0 20px; color: var(--groen); }
+h2 { font-size: 24px; margin: 8px 0 16px; color: var(--groen); }
+
+/* Logo op het aanmeldscherm */
+.logo {
+  display: block;
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  margin: 8px 0 20px;
+}
+
+label {
+  display: block;
+  font-size: 17px;
+  font-weight: 700;
+  margin: 16px 0 6px;
+}
+
+input[type="text"], input[type="tel"] {
+  width: 100%;
+  height: 60px;
+  padding: 0 14px;
+  font-size: 22px;
+  font-family: inherit;
+  border: 3px solid var(--groen);
+  border-radius: 6px;
+  background: var(--wit);
+  color: var(--zwart);
+}
+
+input:focus { outline: 4px solid var(--oranje); outline-offset: 2px; }
+
+.knop {
+  display: block;
+  width: 100%;
+  font-family: inherit;
+  font-weight: 700;
+  border-radius: 6px;
+  border: 3px solid var(--groen);
+  background: var(--groen);
+  color: var(--wit);
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.knop.groot { min-height: 72px; font-size: 22px; margin-top: 20px; padding: 12px; }
+.knop.klein { width: auto; min-height: 48px; font-size: 16px; padding: 0 14px; }
+.knop.secundair { background: var(--wit); color: var(--groen); }
+.knop.plat { background: var(--wit); color: var(--zwart); border-color: var(--lijn); }
+.knop:disabled { opacity: .35; cursor: default; }
+
+/* Ingedrukt: oranje op het groene vlak, groen op de witte knoppen —
+   in beide gevallen goed zichtbaar in de zon. */
+.knop:active { outline: 4px solid var(--oranje); outline-offset: 2px; }
+.knop.secundair:active, .knop.plat:active { outline-color: var(--groen); }
+
+/* Kopbalk: groene lijn met een oranje streep eronder, het enige sieraad. */
+.balk {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 10px;
+  margin-bottom: 14px;
+  border-bottom: 4px solid var(--groen);
+  box-shadow: 0 4px 0 var(--oranje);
+  font-weight: 700;
+  color: var(--groen);
+}
+
+.balk .logo-klein { height: 34px; width: auto; flex: none; }
+.balk .naam {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.status { font-size: 16px; color: var(--grijs); margin: 12px 0; }
+
+/* Het mailadres moet over te tikken zijn als kopiëren niet lukt */
+.adres {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--groen);
+  word-break: break-all;
+  margin: 8px 0;
+  user-select: all;
+}
+.fout { color: var(--rood); font-weight: 700; margin: 12px 0 0; }
+
+.paginas { margin-top: 20px; }
+
+.pagina {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 12px 0;
+  border-top: 2px solid var(--lijn);
+}
+
+.pagina img {
+  width: 96px;
+  height: 128px;
+  object-fit: cover;
+  background: #eee;
+  border: 2px solid var(--groen);
+  flex: none;
+}
+
+.pagina-info { flex: 1 1 auto; min-width: 0; }
+.pagina-info .titel { font-weight: 700; font-size: 18px; color: var(--groen); }
+.pagina-info .meta {
+  font-size: 14px;
+  color: var(--grijs);
+  font-variant-numeric: tabular-nums;
+  word-break: break-word;
+}
+.pagina-info .meta.waarschuwing { color: var(--rood); font-weight: 700; }
+
+.pagina-knoppen { display: flex; gap: 8px; margin-top: 8px; flex-wrap: wrap; }
+
+/* Bijsnijdscherm: over de app heen, zodat de foto zo groot mogelijk is. */
+.snijder {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  background: var(--wit);
+  overflow-y: auto;
+  padding:
+    calc(12px + env(safe-area-inset-top, 0px))
+    calc(16px + env(safe-area-inset-right, 0px))
+    calc(24px + env(safe-area-inset-bottom, 0px))
+    calc(16px + env(safe-area-inset-left, 0px));
+}
+
+.snijder-uitleg { font-weight: 700; margin: 0 0 10px; color: var(--groen); }
+
+.snijder-vlak {
+  display: flex;
+  justify-content: center;
+  background: #222;
+  padding: 8px;
+}
+
+#snijder-doek { touch-action: none; display: block; max-width: 100%; }
+
+.bestandslijst {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 8px;
+  font-size: 15px;
+  word-break: break-all;
+}
+.bestandslijst li { padding: 8px 0; border-top: 2px solid var(--lijn); }
+.bestandslijst a { color: var(--groen); font-weight: 700; }
