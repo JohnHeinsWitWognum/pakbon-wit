@@ -181,24 +181,30 @@ meer in de bestandsnaam.
 
 ### Verzenden
 
-**Verzenden** geeft de foto's aan het deelmenu van de telefoon. Kiest de
-medewerker daar zijn mailapp, dan opent die met de pagina's als bijlage en
-`Pakbon` als onderwerp. Het adres staat eronder op het scherm, met een knop om
-het te kopiëren.
+Twee wegen, want geen van beide is compleet. Een `mailto:`-link kan ontvanger en
+onderwerp invullen maar géén bijlagen dragen; het deelmenu van de telefoon kan
+wél bijlagen meegeven maar kent geen ontvanger. Geen enkele browser staat toe om
+allebei tegelijk te doen.
 
-Waarom het adres er niet vanzelf in staat: een deelmenu kent geen ontvanger, en
-een `mailto:`-link — die wél een ontvanger en onderwerp kan invullen — mag geen
-bijlagen meenemen. Geen enkele browser staat dat toe. Er is geen manier om
-allebei tegelijk te krijgen, dus de bijlagen wegen zwaarder.
+**Mail klaarzetten** (hoofdknop) slaat de pagina's op en opent daarna de mail met
+`mailOntvanger` en `mailOnderwerp` al ingevuld, met de bestandsnamen in de tekst.
+De foto's moeten er met de paperclip bij. De pauze tussen opslaan en openen is er
+omdat een telefoon downloads afbreekt zodra hij naar de mailapp springt; de mail
+gaat via een aangeklikte link, want dat slikken iPhones beter dan `location.href`
+buiten een tik om. Het adres wordt bewust niet ge-encodeerd — sommige mailapps
+struikelen over `%40`.
+
+**Delen met foto's erbij** geeft de pagina's als bijlage aan het deelmenu. Daar
+moet de ontvanger zelf ingevuld worden; een knop eronder kopieert het adres. Deze
+knop verschijnt alleen op toestellen die bestanden kunnen delen.
 
 Tip voor in de praktijk: laat de medewerkers `pakbonnen@witwognum.nl` één keer
-als contact op hun telefoon zetten. Dan is het in de mailapp twee letters typen
-en tikken.
+als contact op hun telefoon zetten. Dan is het bij de deelknop twee letters typen.
 
-Kan het toestel geen bestanden delen (oudere browsers, een laptop), dan toont de
-app in plaats daarvan **1. Opslaan op telefoon** en **2. Mail openen**. Die
-tweede knop opent een lege mail met ontvanger en onderwerp al ingevuld en de
-bestandsnamen in de tekst; de foto's moeten daar zelf bijgevoegd worden.
+Wil je die laatste handeling helemaal weg, dan moet de app de mail zelf
+versturen in plaats van hem aan een mailapp door te geven. Dat vraagt een
+eindpunt dat de foto's aanneemt — een formulierdienst of een eigen functie — en
+dus een abonnement of wat opzetwerk.
 
 #### Van de mailbox naar een map
 

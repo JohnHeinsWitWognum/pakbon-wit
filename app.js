@@ -803,14 +803,36 @@
   }
 
   // Een mailto-link kan ontvanger en onderwerp invullen, maar géén bijlagen
-  // meenemen: browsers staan dat niet toe. Daarom is dit alleen de reserveweg,
-  // voor toestellen die niet kunnen delen.
+  // meenemen: browsers staan dat niet toe. Daarom slaat de app de foto's eerst
+  // op, zodat ze in de mailapp met de paperclip te pakken zijn.
   function mailLink() {
-    return 'mailto:' + encodeURIComponent(C.mailOntvanger) +
+    // Het adres bewust niet coderen: sommige mailapps struikelen over %40.
+    return 'mailto:' + C.mailOntvanger +
       '?subject=' + encodeURIComponent(C.mailOnderwerp) +
       '&body=' + encodeURIComponent(
-        'Voeg de opgeslagen foto’s van de pakbon als bijlage toe.\n\n' +
-        state.paginas.map(function (p, i) { return bestandsnaam(i); }).join('\n'));
+        'Voeg de zojuist opgeslagen foto’s toe met de paperclip:\n\n' +
+        state.paginas.map(function (p, i) { return bestandsnaam(i); }).join('\n') +
+        '\n');
+  }
+
+  // Opslaan en daarna de mail openen. De pauze ertussen is nodig omdat een
+  // telefoon de downloads afbreekt zodra hij naar de mailapp springt. De mail
+  // gaat via een aangeklikte link: dat slikken iPhones beter dan het zetten
+  // van location.href buiten een tik om.
+  function zetMailKlaar() {
+    if (!state.paginas.length) return;
+    melding('Foto’s worden opgeslagen…');
+    slaOp();
+    var wachten = 500 + state.paginas.length * 300;
+    setTimeout(function () {
+      melding('Mail staat klaar. Voeg de foto’s toe met de paperclip.');
+      var a = document.createElement('a');
+      a.href = mailLink();
+      a.id = 'mail-link';
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () { a.remove(); }, 2000);
+    }, wachten);
   }
 
   // Verzenden gaat via het deelmenu van de telefoon: daar gaan de foto's wél
@@ -941,15 +963,11 @@
   el['knop-opslaan'].addEventListener('click', slaOp);
   el['knop-verzenden'].addEventListener('click', verzend);
   el['knop-kopieer'].addEventListener('click', kopieerAdres);
-  el['knop-mail'].addEventListener('click', function () {
-    window.location.href = mailLink();
-  });
+  el['knop-mail'].addEventListener('click', zetMailKlaar);
 
-  // Kan het toestel bestanden meesturen, dan is verzenden de hele weg. Zo niet,
-  // dan blijft opslaan plus een mailtje waar de foto's zelf bij moeten.
+  // Delen met bijlagen kan alleen als het toestel dat ondersteunt.
   el['adres'].textContent = C.mailOntvanger;
   el['blok-verzenden'].hidden = !kanDelen();
-  el['blok-reserve'].hidden = kanDelen();
   el['knop-nieuw'].addEventListener('click', nieuw);
 
   // De pagina's staan alleen in het geheugen: waarschuw bij per ongeluk sluiten.

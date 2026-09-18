@@ -2,7 +2,7 @@
    Pas je een bestand aan? Hoog dan VERSIE op, anders blijven telefoons
    de oude versie uit hun cache serveren. */
 
-var VERSIE = 'pakbon-v9';
+var VERSIE = 'pakbon-v10';
 
 var BESTANDEN = [
   './',

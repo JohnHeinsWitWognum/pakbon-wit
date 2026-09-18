@@ -45,24 +45,22 @@
   <p id="samenvatting" class="status"></p>
   <ul id="bestandslijst" class="bestandslijst"></ul>
 
-  <!-- Verzenden geeft de foto's aan de mailapp; het adres kan een deelmenu
-       niet meegeven, dus dat staat eronder om te kopieren. -->
+  <!-- Weg 1: mail staat klaar met adres en onderwerp, foto's moeten er met
+       de paperclip bij. De app slaat ze daarvoor eerst op. -->
+  <button id="knop-mail" class="knop groot">Mail klaarzetten</button>
+  <p class="status">De foto&rsquo;s worden opgeslagen en de mail opent met
+    <b id="adres">…</b> en onderwerp <b>Pakbon</b> al ingevuld. Voeg de foto&rsquo;s
+    toe met de paperclip.</p>
+
+  <!-- Weg 2: foto's gaan als bijlage mee, adres zelf invullen -->
   <div id="blok-verzenden" hidden>
-    <button id="knop-verzenden" class="knop groot">Verzenden</button>
-    <p class="status">Kies in het menu je mailapp. De foto&rsquo;s en het
-      onderwerp staan er al in. Vul als ontvanger dit adres in:</p>
-    <p class="adres"><span id="adres">…</span></p>
+    <button id="knop-verzenden" class="knop groot secundair">Delen met foto&rsquo;s erbij</button>
+    <p class="status">De foto&rsquo;s gaan meteen mee als bijlage, maar de
+      ontvanger vul je zelf in.</p>
     <button id="knop-kopieer" class="knop klein secundair">Adres kopiëren</button>
   </div>
 
-  <!-- Kan het toestel geen bestanden delen: opslaan en dan zelf bijvoegen -->
-  <div id="blok-reserve" hidden>
-    <button id="knop-opslaan" class="knop groot">1. Opslaan op telefoon</button>
-    <button id="knop-mail" class="knop groot secundair">2. Mail openen</button>
-    <p class="status">Dit toestel kan geen foto&rsquo;s meesturen vanuit de app.
-      Sla ze eerst op en voeg ze daarna in de mail zelf toe.</p>
-  </div>
-
+  <button id="knop-opslaan" class="knop groot plat">Alleen opslaan</button>
   <p id="status-delen" class="status" hidden></p>
   <button id="knop-nieuw" class="knop groot plat">Nieuwe pakbon beginnen</button>
 </section>
